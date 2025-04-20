@@ -5,13 +5,21 @@
 // import { useState } from "react"
 
 // すべてのaタグに色を付ける
-// その中のtarget="_blank"はエラーっぽい色で目立たせる
+// その中のtarget="_blank"はエラーっぽい色(黒・赤)で目立たせる
 // ただし、安全性が高い(rel="noopener noreferrer")なら安全な色にする
 
 // すべてのaタグにtarget="_blank"を設定する
 // rel="noopener noreferrer"もついでに追加した方が良いかどうかはユーザーが好きに選べるようにする
 
 // すべてのtarget="_blank"にrel="noopener noreferrer"を設定する
+
+// 状態(popupのみ)
+// aタグ(非blank)の背景色の有無
+// aタグ(非blank)の文字色の有無
+// aタグ(blank付き)の背景色の有無
+// aタグ(blank付き)の文字色の有無
+// aタグ(blank付きnoopener noreferrer有り)の背景色の有無
+// aタグ(blank付きnoopener noreferrer有り)の文字色の有無
 
 function IndexPopup() {
 
