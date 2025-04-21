@@ -59,6 +59,13 @@ const addBlank = (rel: string) => {
   alert("設定完了")
 }
 
+const removeBlank = () => {
+  const allATags = document.querySelectorAll("a")
+  allATags.forEach((t) => {
+    t.removeAttribute('target')
+  })
+}
+
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.name === "change-a-style") {
     const css: Props = msg.body
@@ -67,6 +74,8 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   } else if (msg.name === "add-a-blank") {
     addBlank(msg.body)
     sendResponse({ status: "Atag's Style changed" })
+  } else if (msg.name === "remove-a-blank") {
+    removeBlank()
   } else if (msg.name === "reset-a-style") {
     window.location.reload()
   }

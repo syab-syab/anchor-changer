@@ -79,12 +79,35 @@ function IndexPopup() {
     }
   }
 
+  const removeBlank = async () => {
+    try {
+      // 現在のタブを取得
+      const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
+      // コンテンツスクリプトにメッセージを送信
+      await chrome.tabs.sendMessage(tab.id, {
+        name: "remove-a-blank",
+        body: "remove please"
+      })
+      console.log("A Style change requested")
+      // setAStyle(!aStyle)
+    } catch (error) {
+      console.error("Error sending message:", error)
+    }
+  }
+
+  
+
   return (
-    <div style={{ padding: 16, width: 300 }}>
+    <div
+      style={{
+        width: "340px",
+      }}
+    >
       <Header />
       <h1>aタグを目立たせる</h1>
       <button onClick={changeStyle}>送信</button>
-      <h1>すべてのaタグにtarget="_blank"を設定する</h1>
+
+      <h1>すべてのaタグにtarget="_blank"を付ける</h1>
       <label htmlFor="">rel=</label>
       <select name="" id="" onChange={(e) => setRel(e.target.value)}>
         <option value="">無し</option>
@@ -92,8 +115,11 @@ function IndexPopup() {
         <option value="noopener">noopener</option>
         <option value="noreferrer">noreferrer</option>
       </select>
-      <p>{rel}</p>
-      <button onClick={AddBlank}>設定</button>
+      <button onClick={AddBlank}>付与</button>
+
+      <h1>すべてのaタグからtarget="_blank"を外す</h1>
+      <button onClick={removeBlank}>外す</button>
+      
       <h1>リセットする</h1>
       <button onClick={resetStyle}>リセット</button>
     </div>

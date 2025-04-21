@@ -4,9 +4,10 @@ import pwsImage from "data-base64:~assets/icon.png"
 // 背景色は
 // #00b371
 // #929191
+// rgb(110, 63, 185)
 
 export const Wrapper = styled.div`
-  background: #929191;
+  background: rgb(110, 63, 185);
   color: black;
 `
 
