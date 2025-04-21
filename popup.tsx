@@ -1,4 +1,4 @@
-// import { useState } from "react"
+import { useState } from "react"
 import { useStorage } from "@plasmohq/storage/hook"
 import { nomalColorLocalKey } from "localKey"
 import { nomalBackgroundLocalKey } from "localKey"
@@ -6,23 +6,8 @@ import { withBlankColorLocalKey } from "localKey"
 import { withBlankBackgroundLocalKey } from "localKey"
 import { noopenerNoreferrerColorLocalKey } from "localKey"
 import { noopenerNoreferrerBackgroundLocalKey } from "localKey"
+import Header from "components/header"
 
-// すべてのaタグに色を付ける
-// その中のtarget="_blank"はエラーっぽい色(黒・赤)で目立たせる
-// ただし、安全性が高い(rel="noopener noreferrer")なら安全な色にする
-
-// すべてのaタグにtarget="_blank"を設定する
-// rel="noopener noreferrer"もついでに追加した方が良いかどうかはユーザーが好きに選べるようにする
-
-// すべてのtarget="_blank"にrel="noopener noreferrer"を設定する
-
-// 状態(popupのみ)
-// aタグ(非blank)の背景色の有無
-// aタグ(非blank)の文字色の有無
-// aタグ(blank付き)の背景色の有無
-// aタグ(blank付き)の文字色の有無
-// aタグ(blank付きnoopener noreferrer有り)の背景色の有無
-// aタグ(blank付きnoopener noreferrer有り)の文字色の有無
 
 function IndexPopup() {
   const [normalColor] = useStorage(nomalColorLocalKey, "#FFFFFF")
@@ -34,6 +19,7 @@ function IndexPopup() {
   const [noopenerNoreferrerColor] = useStorage(noopenerNoreferrerColorLocalKey, "#ff0000")
   const [noopenerNoreferrerBackground] = useStorage(noopenerNoreferrerBackgroundLocalKey, "#00b371")
 
+  const [rel, setRel] = useState("")
 
   const changeStyle = async () => {
     try {
@@ -83,10 +69,9 @@ function IndexPopup() {
       // コンテンツスクリプトにメッセージを送信
       await chrome.tabs.sendMessage(tab.id, {
         name: "add-a-blank",
-        body: {
-          value: "anchor tag's add blank"
-        }
+        body: rel
       })
+      setRel("")
       console.log("A Style change requested")
       // setAStyle(!aStyle)
     } catch (error) {
@@ -96,16 +81,18 @@ function IndexPopup() {
 
   return (
     <div style={{ padding: 16, width: 300 }}>
+      <Header />
       <h1>aタグを目立たせる</h1>
       <button onClick={changeStyle}>送信</button>
       <h1>すべてのaタグにtarget="_blank"を設定する</h1>
       <label htmlFor="">rel=</label>
-      <select name="" id="">
+      <select name="" id="" onChange={(e) => setRel(e.target.value)}>
         <option value="">無し</option>
         <option value="noopener noreferrer">noopener noreferrer</option>
         <option value="noopener">noopener</option>
         <option value="noreferrer">noreferrer</option>
       </select>
+      <p>{rel}</p>
       <button onClick={AddBlank}>設定</button>
       <h1>リセットする</h1>
       <button onClick={resetStyle}>リセット</button>

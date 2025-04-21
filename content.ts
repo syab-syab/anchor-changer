@@ -4,8 +4,6 @@ export const config: PlasmoCSConfig = {
   matches: ["<all_urls>"],
 }
 
-// const backgroundColor = "#00b371"
-
 type Props = {
   normalColor: string,
   normalBackground: string,
@@ -49,14 +47,13 @@ const changeAstyle = (style: Props) => {
   `
   styleElement.textContent = css;
   document.head.appendChild(styleElement);
-
 }
 
-const addBlank = () => {
+const addBlank = (rel: string) => {
   const nonBlanks = document.querySelectorAll("a")
   nonBlanks.forEach((t) => {
     t.target = "_blank"
-    t.rel = "noopener noreferrer"
+    t.rel = `${rel}`
     // t.style.background = "#00ff7f"
   })
   alert("設定完了")
@@ -68,7 +65,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     changeAstyle(css)
     sendResponse({ status: "Atag's Style changed" })
   } else if (msg.name === "add-a-blank") {
-    addBlank()
+    addBlank(msg.body)
     sendResponse({ status: "Atag's Style changed" })
   } else if (msg.name === "reset-a-style") {
     window.location.reload()
