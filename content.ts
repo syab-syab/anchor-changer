@@ -4,19 +4,44 @@ export const config: PlasmoCSConfig = {
   matches: ["<all_urls>"],
 }
 
-// const backgroundColor = "#3cb371"
+// const backgroundColor = "#00b371"
+
 
 const changeAstyle = () => {
-  const nonBlanks = document.querySelectorAll("a")
-  const blanks: NodeListOf<HTMLAnchorElement> = document.querySelectorAll('a[target="_blank"]')
-  nonBlanks.forEach((t) => {
-    t.style.color = "white"
-    t.style.background = "#3cb371"
-  })
-  blanks.forEach((t) => {
-    t.style.color = "red"
-    t.style.background = "black"
-  })
+
+  const styleElement = document.createElement("style");
+  const css = `
+    a {
+      color: white !important;
+      background: #00b371 !important;
+    }
+    a[target="_blank"] {
+      color: red !important;
+      background: black !important;
+    }
+    a[rel="noopener noreferrer"], a[rel="noopener"], a[rel="noreferrer"]{
+      color: red !important;
+      background: #00b371 !important;
+    }
+    a[rel="noopener noreferrer"]::before {
+      content: "noopener noreferrer";
+      background-color: white;
+      border: 1px black solid;
+    }
+    a[rel="noopener"]::before {
+      content: "noopener";
+      background-color: white;
+      border: 1px black solid;
+    }
+    a[rel="noreferrer"]::before {
+      content: "noreferrer";
+      background-color: white;
+      border: 1px black solid;
+    }
+  `
+  styleElement.textContent = css;
+  document.head.appendChild(styleElement);
+
 }
 
 const addBlank = () => {

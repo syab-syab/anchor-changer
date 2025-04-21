@@ -1,8 +1,11 @@
-// 登録したURLにアクセスするのを我慢する拡張機能
-// Webページ内のすべての画像を一括でサイドパネルにリストアップしてワンタッチで保存
-// 脆弱性があると話題のtarget="_blank"のタブを色付けして、すべてのaタグのtarget_blankを外したり付けたりする
-
 // import { useState } from "react"
+import { useStorage } from "@plasmohq/storage/hook"
+import { nomalColorLocalKey } from "localKey"
+import { nomalBackgroundLocalKey } from "localKey"
+import { withBlankColorLocalKey } from "localKey"
+import { withBlankBackgroundLocalKey } from "localKey"
+import { noopenerNoreferrerColorLocalKey } from "localKey"
+import { noopenerNoreferrerBackgroundLocalKey } from "localKey"
 
 // すべてのaタグに色を付ける
 // その中のtarget="_blank"はエラーっぽい色(黒・赤)で目立たせる
@@ -22,6 +25,14 @@
 // aタグ(blank付きnoopener noreferrer有り)の文字色の有無
 
 function IndexPopup() {
+  const [normalColor] = useStorage(nomalColorLocalKey, "white")
+  const [normalBackground] = useStorage(nomalBackgroundLocalKey, "#00b371")
+
+  const [withBlankColor] = useStorage(withBlankColorLocalKey, "red")
+  const [withBlankBackground] = useStorage(withBlankBackgroundLocalKey, "black")
+
+  const [noopenerNoreferrerColor] = useStorage(noopenerNoreferrerColorLocalKey, "red")
+  const [noopenerNoreferrerBackground] = useStorage(noopenerNoreferrerBackgroundLocalKey, "#00b371")
 
   // const [aStyle, setAStyle] = useState(false)
 
