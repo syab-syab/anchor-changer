@@ -6,22 +6,30 @@ export const config: PlasmoCSConfig = {
 
 // const backgroundColor = "#00b371"
 
+type Props = {
+  normalColor: string,
+  normalBackground: string,
+  withBlankColor: string,
+  withBlankBackground: string,
+  noopenerNoreferrerColor: string,
+  noopenerNoreferrerBackground: string
+}
 
-const changeAstyle = () => {
+const changeAstyle = (style: Props) => {
 
   const styleElement = document.createElement("style");
   const css = `
     a {
-      color: white !important;
-      background: #00b371 !important;
+      color: ${style.normalColor} !important;
+      background: ${style.normalBackground} !important;
     }
     a[target="_blank"] {
-      color: red !important;
-      background: black !important;
+      color: ${style.withBlankColor} !important;
+      background: ${style.withBlankBackground} !important;
     }
     a[rel="noopener noreferrer"], a[rel="noopener"], a[rel="noreferrer"]{
-      color: red !important;
-      background: #00b371 !important;
+      color: ${style.noopenerNoreferrerColor} !important;
+      background: ${style.noopenerNoreferrerBackground} !important;
     }
     a[rel="noopener noreferrer"]::before {
       content: "noopener noreferrer";
@@ -49,18 +57,15 @@ const addBlank = () => {
   nonBlanks.forEach((t) => {
     t.target = "_blank"
     t.rel = "noopener noreferrer"
-    t.style.background = "#00ff7f"
+    // t.style.background = "#00ff7f"
   })
+  alert("設定完了")
 }
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.name === "change-a-style") {
-    // const { fontColor } = msg.body
-    // const body = msg.body
-    // ウェブページのスタイルを変更
-    // document.body.style.backgroundColor = backgroundColor
-    // injectStyle(fontColor)
-    changeAstyle()
+    const css: Props = msg.body
+    changeAstyle(css)
     sendResponse({ status: "Atag's Style changed" })
   } else if (msg.name === "add-a-blank") {
     addBlank()

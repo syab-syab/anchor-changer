@@ -25,16 +25,15 @@ import { noopenerNoreferrerBackgroundLocalKey } from "localKey"
 // aタグ(blank付きnoopener noreferrer有り)の文字色の有無
 
 function IndexPopup() {
-  const [normalColor] = useStorage(nomalColorLocalKey, "white")
+  const [normalColor] = useStorage(nomalColorLocalKey, "#FFFFFF")
   const [normalBackground] = useStorage(nomalBackgroundLocalKey, "#00b371")
 
-  const [withBlankColor] = useStorage(withBlankColorLocalKey, "red")
-  const [withBlankBackground] = useStorage(withBlankBackgroundLocalKey, "black")
+  const [withBlankColor] = useStorage(withBlankColorLocalKey, "#ff0000")
+  const [withBlankBackground] = useStorage(withBlankBackgroundLocalKey, "#000000")
 
-  const [noopenerNoreferrerColor] = useStorage(noopenerNoreferrerColorLocalKey, "red")
+  const [noopenerNoreferrerColor] = useStorage(noopenerNoreferrerColorLocalKey, "#ff0000")
   const [noopenerNoreferrerBackground] = useStorage(noopenerNoreferrerBackgroundLocalKey, "#00b371")
 
-  // const [aStyle, setAStyle] = useState(false)
 
   const changeStyle = async () => {
     try {
@@ -44,7 +43,12 @@ function IndexPopup() {
       await chrome.tabs.sendMessage(tab.id, {
         name: "change-a-style",
         body: {
-          value: "anchor tag's style change"
+          normalColor: normalColor,
+          normalBackground: normalBackground,
+          withBlankColor: withBlankColor,
+          withBlankBackground: withBlankBackground,
+          noopenerNoreferrerColor: noopenerNoreferrerColor,
+          noopenerNoreferrerBackground: noopenerNoreferrerBackground
         }
       })
       console.log("A Style change requested")
@@ -95,7 +99,14 @@ function IndexPopup() {
       <h1>aタグを目立たせる</h1>
       <button onClick={changeStyle}>送信</button>
       <h1>すべてのaタグにtarget="_blank"を設定する</h1>
-      <button onClick={AddBlank}>送信</button>
+      <label htmlFor="">rel=</label>
+      <select name="" id="">
+        <option value="">無し</option>
+        <option value="noopener noreferrer">noopener noreferrer</option>
+        <option value="noopener">noopener</option>
+        <option value="noreferrer">noreferrer</option>
+      </select>
+      <button onClick={AddBlank}>設定</button>
       <h1>リセットする</h1>
       <button onClick={resetStyle}>リセット</button>
     </div>
