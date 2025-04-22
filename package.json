@@ -2,7 +2,7 @@
   "name": "anchor-changer",
   "displayName": "Anchor-Editor",
   "version": "1.0.0",
-  "description": "aタグを編集できる",
+  "description": "Webページにあるaタグをマーキングしたり属性を編集したりできる",
   "author": "syab-syab",
   "scripts": {
     "dev": "plasmo dev",
@@ -28,6 +28,10 @@
   "manifest": {
     "host_permissions": [
       "https://*/*"
+    ],
+    "permissions": [
+      "activeTab",
+      "storage"
     ]
   }
 }
