@@ -33,16 +33,31 @@ const changeAstyle = (style: Props) => {
       content: "noopener noreferrer";
       background-color: white;
       border: 1px black solid;
+      
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      font-size: 10px;
     }
     a[rel="noopener"]::before {
       content: "noopener";
       background-color: white;
       border: 1px black solid;
+
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      font-size: 10px;
     }
     a[rel="noreferrer"]::before {
       content: "noreferrer";
       background-color: white;
       border: 1px black solid;
+
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      font-size: 10px;
     }
   `
   styleElement.textContent = css;
@@ -56,7 +71,7 @@ const addBlank = (rel: string) => {
     t.rel = `${rel}`
     // t.style.background = "#00ff7f"
   })
-  alert("設定完了")
+  alert('target="_blank"を付けました。')
 }
 
 const removeBlank = () => {
@@ -64,6 +79,7 @@ const removeBlank = () => {
   allATags.forEach((t) => {
     t.removeAttribute('target')
   })
+  alert('target="_blank"を外しました。')
 }
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {

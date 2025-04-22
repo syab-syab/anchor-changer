@@ -5,6 +5,42 @@ import { withBlankColorLocalKey } from "localKey"
 import { withBlankBackgroundLocalKey } from "localKey"
 import { noopenerNoreferrerColorLocalKey } from "localKey"
 import { noopenerNoreferrerBackgroundLocalKey } from "localKey"
+import styled from "styled-components"
+import Header from "components/header"
+
+const AllWrapper = styled.div`
+  background: white;  
+`
+
+const Wrapper = styled.div`
+  text-align: center;
+  font-size: 15px;
+  width: 700px;
+  margin: 50px auto;
+  background: rgb(238 235 235);
+  padding: 10px 0 0;
+`
+
+const HeadTag = styled.h1`
+  font-weight: normal;
+`
+
+const MidTag = styled.h2`
+  font-weight: normal;
+`
+
+const FormWrapper = styled.div`
+  margin-bottom: 10px;
+`
+
+const Label = styled.label`
+  font-size: 20px;
+`
+
+const Btn = styled.button`
+  font-size: 20px;
+  width: 100%;
+`
 
 // 普通のaタグ
 // color: white; background: #00b371;
@@ -38,75 +74,84 @@ function OptionsIndex() {
   }
 
   return (
-    <div>
-      <h1>
-        ここでaタグに付ける背景色と文字色を設定できるようにする
-      </h1>
+    <AllWrapper>
+      <Wrapper>
+        <Header />
+        <HeadTag>
+          aタグに付ける背景色と文字色を設定できます。
+        </HeadTag>
 
-      {/* 普通のaタグ */}
-      <div>
-        <h2>普通のaタグ</h2>
-        <label htmlFor="">文字色</label>
-        <br />
-        <input
-          type="color"
-          value={normalColor}
-          onChange={(e) => setNormalColor(e.target.value)}
-        />
-        <br />
-        <label htmlFor="">背景色</label>
-        <br />
-        <input
-          type="color"
-          value={normalBackground}
-          onChange={(e) => setNormalBackground(e.target.value)}
-        />
-      </div>
+        {/* 普通のaタグ */}
+        <FormWrapper>
+          <MidTag>普通のaタグ</MidTag>
+          <Label htmlFor="color">文字色</Label>
+          <br />
+          <input
+            id="color"
+            type="color"
+            value={normalColor}
+            onChange={(e) => setNormalColor(e.target.value)}
+          />
+          <br />
+          <Label htmlFor="back">背景色</Label>
+          <br />
+          <input
+            id="back"
+            type="color"
+            value={normalBackground}
+            onChange={(e) => setNormalBackground(e.target.value)}
+          />
+        </FormWrapper>
 
-      {/* target="_blank" */}
-      <div>
-        <h2>target="_blank"</h2>
-        <label htmlFor="">文字色</label>
-        <br />
-        <input
-          type="color"
-          value={withBlankColor}
-          onChange={(e) => setWithBlankColor(e.target.value)}
-        />
-        <br />
-        <label htmlFor="">背景色</label>
-        <br />
-        <input
-          type="color"
-          value={withBlankBackground}
-          onChange={(e) => setWithBlankBackground(e.target.value)}
-        />
-      </div>
+        {/* target="_blank" */}
+        <FormWrapper>
+          <MidTag>target="_blank"</MidTag>
+          <Label htmlFor="blank-color">文字色</Label>
+          <br />
+          <input
+            id="blank-color"
+            type="color"
+            value={withBlankColor}
+            onChange={(e) => setWithBlankColor(e.target.value)}
+          />
+          <br />
+          <Label htmlFor="blank-back">背景色</Label>
+          <br />
+          <input
+            id="blank-back"
+            type="color"
+            value={withBlankBackground}
+            onChange={(e) => setWithBlankBackground(e.target.value)}
+          />
+        </FormWrapper>
 
-      {/* rel="noopener noreferrer" */}
-      <div>
-        <h2>rel="noopener noreferrer"</h2>
-        <label htmlFor="">文字色</label>
-        <br />
-        <input
-          type="color"
-          value={noopenerNoreferrerColor}
-          onChange={(e) => setNoopenerNoreferrerColor(e.target.value)}
-        />
-        <br />
-        <label htmlFor="">背景色</label>
-        <br />
-        <input
-          type="color"
-          value={noopenerNoreferrerBackground}
-          onChange={(e) => setNoopenerNoreferrerBackground(e.target.value)}
-        />
-      </div>
+        {/* rel="noopener noreferrer" */}
+        <FormWrapper>
+          <MidTag>rel="noopener noreferrer"</MidTag>
+          <Label htmlFor="noopener-noreferrer-color">文字色</Label>
+          <br />
+          <input
+            id="noopener-noreferrer-color"
+            type="color"
+            value={noopenerNoreferrerColor}
+            onChange={(e) => setNoopenerNoreferrerColor(e.target.value)}
+          />
+          <br />
+          <Label htmlFor="noopener-noreferrer-back">背景色</Label>
+          <br />
+          <input
+            id="noopener-noreferrer-back"
+            type="color"
+            value={noopenerNoreferrerBackground}
+            onChange={(e) => setNoopenerNoreferrerBackground(e.target.value)}
+          />
+        </FormWrapper>
 
-      <div>
-        <button onClick={() => resetColors()}>初期化</button>
-      </div>
-    </div>
+        <div>
+          <Btn onClick={() => resetColors()}>初期化</Btn>
+        </div>
+      </Wrapper>
+    </AllWrapper>
   )
 }
 

@@ -7,7 +7,36 @@ import { withBlankBackgroundLocalKey } from "localKey"
 import { noopenerNoreferrerColorLocalKey } from "localKey"
 import { noopenerNoreferrerBackgroundLocalKey } from "localKey"
 import Header from "components/header"
+import styled from "styled-components"
 
+const Wrapper = styled.div`
+  padding: 20px;
+  background: rgb(217, 217, 217);
+`
+
+const FormWrapper = styled.div`
+  margin-bottom: 10px;
+`
+
+const Label = styled.label`
+  font-size: 20px;
+`
+
+const Select = styled.select`
+  font-size: 20px;
+  width: 100%;
+`
+
+const MiniSentense = styled.p`
+  margin: 10px 0 0 0;
+  font-size: 15px;
+  font-weight: bold;
+`
+
+const Btn = styled.button`
+  font-size: 20px;
+  width: 100%;
+`
 
 function IndexPopup() {
   const [normalColor] = useStorage(nomalColorLocalKey, "#FFFFFF")
@@ -104,24 +133,40 @@ function IndexPopup() {
       }}
     >
       <Header />
-      <h1>aタグを目立たせる</h1>
-      <button onClick={changeStyle}>送信</button>
+      <Wrapper>
+        <FormWrapper>
+          <Label>aタグを目立たせる</Label>
+          <br />
+          <Btn onClick={changeStyle}>ON</Btn>
+        </FormWrapper>
 
-      <h1>すべてのaタグにtarget="_blank"を付ける</h1>
-      <label htmlFor="">rel=</label>
-      <select name="" id="" onChange={(e) => setRel(e.target.value)}>
-        <option value="">無し</option>
-        <option value="noopener noreferrer">noopener noreferrer</option>
-        <option value="noopener">noopener</option>
-        <option value="noreferrer">noreferrer</option>
-      </select>
-      <button onClick={AddBlank}>付与</button>
+        <FormWrapper>
+          <Label htmlFor="add-blank">すべてのaタグにtarget="_blank"を付ける</Label>
+          <br />
+          <MiniSentense>rel=</MiniSentense>
+          <Select name="add-blank" id="add-blank" onChange={(e) => setRel(e.target.value)}>
+            <option value="">無し</option>
+            <option value="noopener noreferrer">noopener noreferrer</option>
+            <option value="noopener">noopener</option>
+            <option value="noreferrer">noreferrer</option>
+          </Select>
+          <Btn onClick={AddBlank}>付ける</Btn>          
+        </FormWrapper>
 
-      <h1>すべてのaタグからtarget="_blank"を外す</h1>
-      <button onClick={removeBlank}>外す</button>
-      
-      <h1>リセットする</h1>
-      <button onClick={resetStyle}>リセット</button>
+        <FormWrapper>
+          <Label>すべてのaタグからtarget="_blank"を外す</Label>
+          <br />
+          <Btn onClick={removeBlank}>外す</Btn>          
+        </FormWrapper>
+
+        <FormWrapper>
+          <Label>リセットする</Label>
+          <br />
+          <Btn onClick={resetStyle}>リセット</Btn>     
+        </FormWrapper>
+   
+      </Wrapper>
+
     </div>
   )
 }
