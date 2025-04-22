@@ -55,7 +55,7 @@ const Header = () => {
       <TitleWrapper>
           <Image src={pwsImage} alt="" />
         <Title>
-          Anchor-Changer
+          Anchor-Editor
         </Title>
       </TitleWrapper>
     </Wrapper>

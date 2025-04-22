@@ -1,7 +1,7 @@
 {
   "name": "anchor-changer",
-  "displayName": "Anchor changer",
-  "version": "0.0.1",
+  "displayName": "Anchor-Editor",
+  "version": "1.0.0",
   "description": "aタグを編集できる",
   "author": "syab-syab",
   "scripts": {
